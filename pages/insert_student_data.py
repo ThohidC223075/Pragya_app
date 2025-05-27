@@ -2,20 +2,20 @@ import json
 import streamlit as st
 from google.oauth2 import service_account
 import gspread
-
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+from gspread_client import client
+#scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
 # Load credentials JSON string from Streamlit secrets
-service_account_json_str = st.secrets["GOOGLE_CREDENTIALS"]
+#service_account_json_str = st.secrets["GOOGLE_CREDENTIALS"]
 
 # Parse JSON string into a dict
-service_account_info = json.loads(service_account_json_str)
+#service_account_info = json.loads(service_account_json_str)
 
 # Create credentials object
-credentials = service_account.Credentials.from_service_account_info(service_account_info, scopes=scope)
+#credentials = service_account.Credentials.from_service_account_info(service_account_info, scopes=scope)
 
 # Authorize gspread
-client = gspread.authorize(credentials)
+#client = gspread.authorize(credentials)
 
 # Step 1: Auth and connect
 #scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
