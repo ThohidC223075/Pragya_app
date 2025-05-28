@@ -65,7 +65,8 @@ else:
 # Logo
 col1, col2, col3 = st.columns([1, .45, 1])
 with col2:
-    st.image("images/pragya.jpeg", width=120)
+    #st.image("images/pragya.jpeg", width=120)
+    st.image("../images/pragya.jpeg", width=120)
 
 # --- Custom Colors and Fonts ---
 primary_color = "#00695C"
@@ -159,4 +160,5 @@ st.markdown("</div>", unsafe_allow_html=True)
 col1, col2, col3 = st.columns([3, 1, 1])
 with col3:
     st.markdown(f"<p style='color: black; font-size: 20px; margin-top: -30px; font-family: \"{body_font}\";'><b>Powered by</b></p>", unsafe_allow_html=True)
-    st.image("images/codetroon.jpg", width=100)
+    #st.image("images/codetroon.jpg", width=100)
+    st.image("../images/codetroon.jpg", width=100)
