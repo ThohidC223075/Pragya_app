@@ -38,6 +38,14 @@ with col3:
 with col4:
     address = st.text_input("Address")
 
+col5, col6 = st.columns(2)
+with col5:
+    password = st.text_input("Admin Password",type="password")
+#Accessing the password
+my_password = st.secrets["password"]
+
+
+
 def find_row_by_id(sheet, target_id):
     records = sheet.get_all_records()
     for index, row in enumerate(records):
@@ -55,35 +63,48 @@ def update_specific_fields(sheet, row_number, updates: dict):
             
 
 if st.button("Submit"):
-    row_num = find_row_by_id(sheet, Teacher_id)
-    
-    if row_num:
-        updates={}
-        if phone:
-            if phone.isdigit() and len(phone)==11:
-               updates["Phone"]=phone
-            else:
-                st.warning("Updatation Fail! Due To Phone Length Is Not Equals To 11")
-                st.stop()
-        if institute:
-            updates["Institute"]=institute
-        if address:
-            updates["Address"]=address
-        if updates:
-            update_specific_fields(sheet, row_num, updates)
-            st.success(f"Data updated for ID: {Teacher_id}")
+    if password==my_password:
+        row_num = find_row_by_id(sheet, Teacher_id)
+        
+        if row_num:
+            updates={}
+            if phone:
+                if phone.isdigit() and len(phone)==11:
+                    updates["Phone"]=phone
+                else:
+                    st.warning("Updatation Fail! Due To Phone Length Is Not Equals To 11")
+                    st.stop()
+            if institute:
+                updates["Institute"]=institute
+            if address:
+                updates["Address"]=address
+            if updates:
+                update_specific_fields(sheet, row_num, updates)
+                st.success(f"Data updated for ID: {Teacher_id}")
+        else:
+            st.error("ID not found in the sheet.")
     else:
-        st.error("ID not found in the sheet.")
+        st.error("Admin Password IS Not Correct!")
 
 
 
 
 st.title("Delete Teacher Data")
-Teacher_id = st.text_input("Teacher Id")
+col1, col2 = st.columns(2)
+with col1:
+    Teacher_id = st.text_input("Teacher Id")
+with col2:
+    password = st.text_input("Admin Password",type="password",key="delete")
+#Accessing the password
+my_password = st.secrets["password"]
+
 if st.button("Delete"):
-    row_num = find_row_by_id(sheet, Teacher_id)
-    if row_num:
-        sheet.delete_rows(row_num)
-        st.success(f"Row with ID {Teacher_id} deleted.")
+    if password==my_password:
+        row_num = find_row_by_id(sheet, Teacher_id)
+        if row_num:
+            sheet.delete_rows(row_num)
+            st.success(f"Row with ID {Teacher_id} deleted.")
+        else:
+            st.error("ID not found in the sheet.")
     else:
-        st.error("ID not found in the sheet.")
+        st.error("Admin Password Is Not Correct!")

@@ -59,75 +59,86 @@ with col3:
     "Select your class:",
     ["Individual","All"]
    )
+with col4:
+    password = st.text_input("Admin Password",type="password")
+#Accessing the password
+my_password = st.secrets["password"]
 
-
+flag=0
 # Submit Button
 if st.button("Submit"):
-    if option == "Individual":
-        if teacher_id and selected_date:
-            selected_date_dt = pd.to_datetime(selected_date)
+    if password==my_password:
+        if option == "Individual":
+            flag=1
+            if teacher_id and selected_date:
+                selected_date_dt = pd.to_datetime(selected_date)
 
-            # Filter logic
-            filtered_df = df[
-                (df['ID'] == teacher_id) &
-                (df['Date'] <= selected_date_dt) &
-                (df['Paid'] == "No")
-            ]
+                # Filter logic
+                filtered_df = df[
+                    (df['ID'] == teacher_id) &
+                    (df['Date'] <= selected_date_dt) &
+                    (df['Paid'] == "No")
+                ]
 
-            if not filtered_df.empty:
-                st.success("Unpaid records found:")
-                #st.dataframe(filtered_df)
-                df = pd.DataFrame(filtered_df)
-                st.markdown(
-                    """
-                    <style>
-                        table {
-                         width: 100%;
+                if not filtered_df.empty:
+                    st.success("Unpaid records found:")
+                    #st.dataframe(filtered_df)
+                    df = pd.DataFrame(filtered_df)
+                    st.markdown(
+                        """
+                        <style>
+                            table {
+                            width: 100%;
+                            text-align: center !important;
+                        }
+                        th, td {
                         text-align: center !important;
-                       }
-                       th, td {
-                      text-align: center !important;
-                     }
-                  </style>
-                 """,
-               unsafe_allow_html=True
-                )
-                st.table(df) 
+                        }
+                    </style>
+                    """,
+                unsafe_allow_html=True
+                    )
+                    st.table(df) 
+                else:
+                    st.warning("No unpaid data found for this teacher before the selected date.")
             else:
-                st.warning("No unpaid data found for this teacher before the selected date.")
-        else:
-            st.error("Please enter both Teacher ID and Date.")
-         
-    elif option=="All":
-        data = sheet1.get_all_records()
-        if data:
-            df = pd.DataFrame(data)
-            df = df.drop(index=0).reset_index(drop=True)
-        else:
-            st.warning("The Sheet is Empty!")
-            st.stop()
-        st.markdown(
-               """
-               <style>
-                   table {
-                       width: 100%;
-                       text-align: center !important;
-                   }
-                   th, td {
-                   text-align: center !important;
-                   }
-               </style>
-               """,
-               unsafe_allow_html=True
-           )
-        st.table(df) 
+                st.error("Please enter both Teacher ID and Date.")
+            
+        elif option=="All":
+            data = sheet1.get_all_records()
+            if data:
+                df = pd.DataFrame(data)
+                df = df.drop(index=0).reset_index(drop=True)
+            else:
+                st.warning("The Sheet is Empty!")
+                st.stop()
+            st.markdown(
+                """
+                <style>
+                    table {
+                        width: 100%;
+                        text-align: center !important;
+                    }
+                    th, td {
+                    text-align: center !important;
+                    }
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+            st.table(df) 
+    else:
+        st.error("Admin Password is not Correct!")
 
 if st.button("Paid"):
-    teacher_id_param = urllib.parse.quote(teacher_id)
-    selected_date_param = urllib.parse.quote(selected_date.strftime('%Y-%m-%d'))
-    
-    redirect_url = f"/teacher_salary?teacher_id={teacher_id_param}&selected_date={selected_date_param}"
-    
-    st.markdown(f"""
-    <meta http-equiv="refresh" content="0; url={redirect_url}">
-    """, unsafe_allow_html=True)
+    if password==my_password and flag==1:
+        teacher_id_param = urllib.parse.quote(teacher_id)
+        selected_date_param = urllib.parse.quote(selected_date.strftime('%Y-%m-%d'))
+        
+        redirect_url = f"/teacher_salary?teacher_id={teacher_id_param}&selected_date={selected_date_param}"
+        
+        st.markdown(f"""
+        <meta http-equiv="refresh" content="0; url={redirect_url}">
+        """, unsafe_allow_html=True)
+    else:
+        st.error("Admin Password is not Correct or You didn't Give proper information!")

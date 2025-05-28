@@ -30,7 +30,16 @@ with col3:
 with col4:
     institute = st.text_input("Institute")
 
-address = st.text_input("Address")
+col5, col6 = st.columns(2)
+with col5:
+    address = st.text_input("Address")
+with col6:
+    password = st.text_input("Admin Password",type="password")
+#Accessing the password
+my_password = st.secrets["password"]
+
+
+
 
 def find_row_by_id(sheet, target_id):
     records = sheet.get_all_records()
@@ -64,25 +73,28 @@ def making_sheet_name(student_class):
 
 # Submit Button
 if st.button("Update"):
-    sheet=making_sheet_name(student_class)
-    row_num = find_row_by_id(sheet, student_id)
-    if row_num:
-        updates={}
-        if phone:
-            if phone.isdigit() and len(phone)==11:
-               updates["Phone"]=phone
-            else:
-                st.warning("Updatation Fail! Due To Phone Length Is Not Equals To 11")
-                st.stop()
-        if institute:
-            updates["Institute"]=institute
-        if address:
-            updates["Address"]=address
-        if updates:
-            update_specific_fields(sheet, row_num, updates)
-            st.success(f"Data updated for ID: {student_id}")
+    if password==my_password:
+        sheet=making_sheet_name(student_class)
+        row_num = find_row_by_id(sheet, student_id)
+        if row_num:
+            updates={}
+            if phone:
+                if phone.isdigit() and len(phone)==11:
+                    updates["Phone"]=phone
+                else:
+                    st.warning("Updatation Fail! Due To Phone Length Is Not Equals To 11")
+                    st.stop()
+            if institute:
+                updates["Institute"]=institute
+            if address:
+                updates["Address"]=address
+            if updates:
+                update_specific_fields(sheet, row_num, updates)
+                st.success(f"Data updated for ID: {student_id}")
+        else:
+            st.error("ID not found in the sheet.")
     else:
-        st.error("ID not found in the sheet.")
+        st.error("Admin Pasword Is Not Correct!")
         
 
 
@@ -96,12 +108,22 @@ with col2:
     "class:",
     ["6","7","8","9","10","11","12"]
    )
+col3, col4 = st.columns(2)
+with col3:
+    password = st.text_input("Admin Password",type="password",key="delete")
+#Accessing the password
+my_password = st.secrets["password"]
+
+
 
 if st.button("Delete"):
-    sheet=making_sheet_name(student_class)
-    row_num = find_row_by_id(sheet, student_id)
-    if row_num:
-        sheet.delete_rows(row_num)
-        st.success(f"Row with ID {student_id} deleted.")
+    if password==my_password:
+        sheet=making_sheet_name(student_class)
+        row_num = find_row_by_id(sheet, student_id)
+        if row_num:
+            sheet.delete_rows(row_num)
+            st.success(f"Row with ID {student_id} deleted.")
+        else:
+            st.error("ID not found in the sheet.")
     else:
-        st.error("ID not found in the sheet.")
+        st.error("Admin Password Is Not Correct!")

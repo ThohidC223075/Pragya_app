@@ -37,13 +37,20 @@ col3, col4 = st.columns(2)
 with col3:
     amount = st.text_input("Amount")
 with col4:
-    password = st.text_input("Admin Password")
+    password = st.text_input("Admin Password",type="password")
+
+#Accessing the password
+my_password = st.secrets["password"]
+
+
 
 if st.button("Submit"):
-    if selected_date.strip() and reason.strip() and amount.strip() and password == "admin2":
+    if selected_date.strip() and reason.strip() and amount.strip() and password == my_password:
         data = [selected_date, reason, amount]
         sheet.append_row(data)
         st.success("Data Submitted Successfully")
+    elif password!=my_password:
+        st.error("Admin Password is not Correct")
     else:
         st.error("Please Insert Correct Information")
 
@@ -58,11 +65,11 @@ with col2:
 
 col3, col4 = st.columns(2)
 with col3:
-    fetch_password = st.text_input("Admin Password (for fetch)", key="fetch")
+    fetch_password = st.text_input("Admin Password", key="fetch",type="password")
 
 
 if st.button("Fetch"):
-    if starting_date.strip() and ending_date.strip() and fetch_password == "admin2":
+    if starting_date.strip() and ending_date.strip() and fetch_password == my_password:
         # Convert start and end dates to datetime64[ns] for correct comparison
         starting_date = pd.to_datetime(starting_date)
         ending_date = pd.to_datetime(ending_date)
@@ -97,5 +104,7 @@ if st.button("Fetch"):
        )
         st.table(filtered_df) 
         st.write(f"Total Cost: {total_amount}")
+    elif password!=my_password:
+        st.error("Admin Password is not Correct")
     else:
         st.error("Please Insert Correct Information")

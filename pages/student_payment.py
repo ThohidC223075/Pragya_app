@@ -37,7 +37,12 @@ with col6:
         "Received By",
         ["Director","Manager","Owner"]
     )
-
+    
+col7, col8 = st.columns(2)
+with col7:
+    password = st.text_input("Admin Password",type="password")
+#Accessing the password
+my_password = st.secrets["password"]
 
 
 try:
@@ -54,23 +59,26 @@ except Exception as e:
 # Submit button only shown when every filled are fillup
 
 if st.button("Submit"):
-    if Id.strip() and month.strip() and actual_amount.strip() and duplicate_amount.strip():
-        current_date = datetime.today().date()
-        Data=[]
-        Data.append(Id)
-        Data.append(actual_amount)
-        Data.append(month)
-        Data.append(str(current_date))
-        sheet.append_row(Data)
-        st.success(f"Data Submitted Sucessfully and The ID is:{Id}")
-        id_param = urllib.parse.quote(Id)
-        amount_param = urllib.parse.quote(duplicate_amount)
-        month_param = urllib.parse.quote(month)
-        class_param = urllib.parse.quote(student_class)
-        owner_param = urllib.parse.quote(author)
-        redirect_url = f"/invoice?id={id_param}&duplicate_amount={amount_param}&month={month_param}&class={class_param}&author={owner_param}"
-        st.markdown(f"""
-        <meta http-equiv="refresh" content="0; url={redirect_url}">
-        """, unsafe_allow_html=True)
+    if password==my_password:
+        if Id.strip() and month.strip() and actual_amount.strip() and duplicate_amount.strip():
+            current_date = datetime.today().date()
+            Data=[]
+            Data.append(Id)
+            Data.append(actual_amount)
+            Data.append(month)
+            Data.append(str(current_date))
+            sheet.append_row(Data)
+            st.success(f"Data Submitted Sucessfully and The ID is:{Id}")
+            id_param = urllib.parse.quote(Id)
+            amount_param = urllib.parse.quote(duplicate_amount)
+            month_param = urllib.parse.quote(month)
+            class_param = urllib.parse.quote(student_class)
+            owner_param = urllib.parse.quote(author)
+            redirect_url = f"/invoice?id={id_param}&duplicate_amount={amount_param}&month={month_param}&class={class_param}&author={owner_param}"
+            st.markdown(f"""
+            <meta http-equiv="refresh" content="0; url={redirect_url}">
+            """, unsafe_allow_html=True)
+        else:
+            st.error("Please Enter The Data Perfectly")
     else:
-        st.error("Please Enter The Data Perfectly")
+        st.error("Admin Password Is Not Correct!")

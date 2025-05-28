@@ -44,6 +44,14 @@ with col3:
 with col4:
     address = st.text_input("Address")
 
+col5, col6 = st.columns(2)
+with col5:
+    password = st.text_input("Admin Password",type="password")
+#Accessing the password
+my_password = st.secrets["password"]
+
+
+
 accessing_sheet_records=sheet.get_all_records()
 
 last_row=accessing_sheet_records[-1]
@@ -54,14 +62,16 @@ new_id="T"+str(remaining_part)
 
 # Submit Button
 if st.button("Submit"):
-    if name.strip() and phone.strip() and institute.strip() and address.strip() and len(phone) ==11 and phone.isdigit():
-            Data=[]
-            Data.append(name)
-            Data.append(new_id)
-            Data.append(phone)
-            Data.append(institute)
-            Data.append(address)
-            sheet.append_row(Data)
-            st.success(f"Data Submitted Sucessfully and The ID is:{new_id}") 
+    if password==my_password and name.strip() and phone.strip() and institute.strip() and address.strip() and len(phone) ==11 and phone.isdigit():
+        Data=[]
+        Data.append(name)
+        Data.append(new_id)
+        Data.append(phone)
+        Data.append(institute)
+        Data.append(address)
+        sheet.append_row(Data)
+        st.success(f"Data Submitted Sucessfully and The ID is:{new_id}") 
+    elif password!=my_password:
+        st.error("Admin Password is not Correct")
     else:
         st.error("Check Phone number  exactly 11 digits and contain only numbers or not. Also check is there any field is empty or not.")

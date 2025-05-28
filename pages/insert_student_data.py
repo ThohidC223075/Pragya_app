@@ -59,7 +59,9 @@ with col8:
     
 col9, col10 = st.columns(2)
 with col9:
-    password = st.text_input("Admin Password")
+    password = st.text_input("Admin Password",type="password")
+#Accessing the password
+my_password = st.secrets["password"]
 #Accesing the sheet
 sheet_name="Student_Information_Class"+student_class
 
@@ -77,8 +79,8 @@ else:
      remaining_part = int(id[2:]) + 1  
       
 new_id = int(student_class + str(remaining_part))
-#Accessing the password
-my_password = st.secrets["password"]
+
+
 
 # Submit button only shown when every filled are fillup
 if st.button("Submit"):
