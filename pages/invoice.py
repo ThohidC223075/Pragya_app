@@ -165,7 +165,7 @@ st.markdown("</div>", unsafe_allow_html=True)
     #st.image("codetroon.jpg", width=100)
 
 
-col_text, col_image = st.columns([1, 1])  # Equal width, or adjust ratio
+col_text, extra,col_image = st.columns([1, 1,1])  # Equal width, or adjust ratio
 
 with col_text:
     st.markdown(
