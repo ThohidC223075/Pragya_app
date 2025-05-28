@@ -164,14 +164,14 @@ st.markdown("</div>", unsafe_allow_html=True)
     #st.markdown(f"<p style='color: black; font-size: 20px; margin-top: -10px; font-family: \"{body_font}\";'><b>Powered by</b></p>", unsafe_allow_html=True)
     #st.image("codetroon.jpg", width=100)
 
+col1, col2, col3 = st.columns([3, 1, 2])  # Adjust proportions as needed
 
-col_text, extra,col_image = st.columns([1, 1,1])  # Equal width, or adjust ratio
-
-with col_text:
-    st.markdown(
-        f"<p style='color: black; font-size: 25px; margin-top: 20px; font-family: \"{body_font}\";'><b>Powered by</b></p>",
-        unsafe_allow_html=True
-    )
-
-with col_image:
-    st.image("codetroon.jpg", width=110)
+with col3:
+    text_col, image_col = st.columns([1, 1])  # Side by side in col3
+    with text_col:
+        st.markdown(
+            f"<p style='color: black; font-size: 25px; margin-top: 12px;margin-left:-30px; font-family: \"{body_font}\";'><b>Powered by</b></p>",
+            unsafe_allow_html=True
+        )
+    with image_col:
+        st.image("codetroon.jpg", width=110)  # Make sure the image file exists in the right location
