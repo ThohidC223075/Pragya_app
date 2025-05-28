@@ -170,8 +170,8 @@ with col3:
     text_col, image_col = st.columns([1, 1])  # Side by side in col3
     with text_col:
         st.markdown(
-            f"<p style='color: black; font-size: 30px; margin-top: -20px; font-family: \"{body_font}\";'><b>Powered by</b></p>",
+            f"<p style='color: black; font-size: 25px; margin-top: -10px; font-family: \"{body_font}\";'><b>Powered by</b></p>",
             unsafe_allow_html=True
         )
     with image_col:
-        st.image("codetroon.jpg", width=100)  # Make sure the image file exists in the right location
+        st.image("codetroon.jpg", width=110)  # Make sure the image file exists in the right location
