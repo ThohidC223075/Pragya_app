@@ -159,10 +159,19 @@ st.markdown(f"""
 st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Footer Section ---
-col1, col2, col3 = st.columns([3, 1, 1])
-with col3:
-    st.markdown(f"<p style='color: black; font-size: 20px; margin-top: -100px; font-family: \"{body_font}\";'><b>Powered by</b></p>", unsafe_allow_html=True)
-    #st.image("images/codetroon.jpg", width=100)
-    #st.image("../images/codetroon.jpg", width=100)
-    st.image("codetroon.jpg", width=100)
+#col1, col2, col3 = st.columns([3, 1, 1])
+#with col3:
+    #st.markdown(f"<p style='color: black; font-size: 20px; margin-top: -10px; font-family: \"{body_font}\";'><b>Powered by</b></p>", unsafe_allow_html=True)
+    #st.image("codetroon.jpg", width=100)
 
+col1, col2, col3 = st.columns([3, 1, 2])  # Adjust proportions as needed
+
+with col3:
+    text_col, image_col = st.columns([1, 1])  # Side by side in col3
+    with text_col:
+        st.markdown(
+            f"<p style='color: black; font-size: 20px; margin-top: 20px; font-family: \"{body_font}\";'><b>Powered by</b></p>",
+            unsafe_allow_html=True
+        )
+    with image_col:
+        st.image("codetroon.jpg", width=80)  # Make sure the image file exists in the right location
