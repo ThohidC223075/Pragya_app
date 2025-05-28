@@ -56,6 +56,10 @@ with col7:
    )
 with col8:
     amount = st.text_input("Amount")
+    
+col9, col10 = st.columns(2)
+with col9:
+    password = st.text_input("Admin Password")
 #Accesing the sheet
 sheet_name="Student_Information_Class"+student_class
 
@@ -73,9 +77,12 @@ else:
      remaining_part = int(id[2:]) + 1  
       
 new_id = int(student_class + str(remaining_part))
+#Accessing the password
+my_password = st.secrets["password"]
+
 # Submit button only shown when every filled are fillup
 if st.button("Submit"):
-    if name.strip() and student_class.strip() and amount.strip() and guardian_name.strip() and phone.strip() and institute.strip() and address.strip() and group.strip() and len(phone) ==11 and phone.isdigit():
+    if password==my_password and name.strip() and student_class.strip() and amount.strip() and guardian_name.strip() and phone.strip() and institute.strip() and address.strip() and group.strip() and len(phone) ==11 and phone.isdigit():
             Data=[]
             Data.append(name)
             Data.append(new_id)
@@ -88,5 +95,8 @@ if st.button("Submit"):
             Data.append(amount)
             sheet.append_row(Data)
             st.success(f"Data Submitted Sucessfully and The ID is:{new_id}")
+    elif password!=my_password:
+        st.error("Admin Password is not Correct")
+    
     else:
         st.error("Check Phone number  exactly 11 digits and contain only numbers or not. Also check is there any field is empty or not.")
