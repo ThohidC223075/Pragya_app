@@ -234,5 +234,5 @@ for i in reversed(range(len(rows))):
         delete_count += 1
 #if delete_count:
     #st.success(f"{delete_count} row(s) deleted.")
-else:
-    st.warning("No matching rows found.")
+#else:
+    #st.warning("No matching rows found.")
