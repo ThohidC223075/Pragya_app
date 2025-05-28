@@ -64,7 +64,7 @@ df['Date'] = pd.to_datetime(df['Date'], format='%Y-%m-%d', errors='coerce')
 # Design
 col1, col2, col3 = st.columns([1, .35, 1])
 with col2:
-    st.image("images/pragya.jpeg", width=120)
+    st.image("pragya.jpeg", width=120)
 
 main_font = "Times New Roman"
 content_font = "Bell MT"
@@ -206,10 +206,17 @@ st.markdown(f"""
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Footer
-col1, col2, col3 = st.columns([3, 1, 1])
+col1, col2, col3 = st.columns([3, 1, 2])  # Adjust proportions as needed
+
 with col3:
-    st.markdown(f"<p style='color: black;font-size:20px;margin-top:0px;font-family:{content_font};'><b>Powered by</b></p>", unsafe_allow_html=True)
-    st.image("images/codetroon.jpg", width=100)
+    text_col, image_col = st.columns([1, 1])  # Side by side in col3
+    with text_col:
+        st.markdown(
+            f"<p style='color: black; font-size: 25px; margin-top: 12px;margin-left:-30px; font-family: \"{body_font}\";'><b>Powered by</b></p>",
+            unsafe_allow_html=True
+        )
+    with image_col:
+        st.image("codetroon.jpg", width=110)  # Make sure the image file exists in the right location
 
 data = sheet2.get_all_values()
 rows = data[1:]
