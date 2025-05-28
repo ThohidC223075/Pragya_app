@@ -175,3 +175,14 @@ with col3:
         )
     with image_col:
         st.image("codetroon.jpg", width=110)  # Make sure the image file exists in the right location
+
+
+st.markdown("""
+    <style>
+    @media print {
+        [title="Manage app"] {
+            display: none !important;
+        }
+    }
+    </style>
+""", unsafe_allow_html=True)
