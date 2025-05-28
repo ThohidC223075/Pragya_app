@@ -71,17 +71,8 @@ st.markdown("""
             <a href="/teacher_taken_class" target="_blank" class="rectangle">
             <h4>Teachers Class Attendance</h4>
         </a>
-        <a href="https://example.com/page5" target="_blank" class="rectangle">
-            <h4>Teacher Salary</h4>
-        </a>
-        <a href="https://example.com/page6" target="_blank" class="rectangle">
-            <h4>Student Invoice</h4>
-        </a>
-        <a href="/all_information" target="_blank" class="rectangle">
-            <h4>All Information</h4>
-        </a>
-            <a href="/class_wise_salary" target="_blank" class="rectangle">
-            <h4>Class Wise Salary Input</h4>
+        <a href="/teacher_class_wise_salary" target="_blank" class="rectangle">
+            <h4>Teacher Class Wise Salary Input</h4>
         </a>
     </div>
 """, unsafe_allow_html=True)

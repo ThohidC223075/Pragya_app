@@ -122,7 +122,7 @@ with col8:
 
 col9, col10 = st.columns(2)
 with col9:
-    password = st.text_input("Admin Password",type="password")
+    password = st.text_input("Admin Password",type="password",key="update")
 #Accessing the password
 my_password = st.secrets["password"]
 
