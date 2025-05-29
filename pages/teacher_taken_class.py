@@ -47,21 +47,28 @@ with col8:
 col9, col10 = st.columns(2)
 with col9:
     class12 = st.text_input("Class 12")
+with col10:
+    t_password = st.text_input("Teacher Password",type="password")
+#Accessing the password
+teacher_password = st.secrets["teacher_password"]
 
 if st.button("Submit"):
-    Data=[]
-    Data.append(teacher_id)
-    Data.append(str(selected_date ))
-    Data.append(class6 if class6 else "0")
-    Data.append(class7 if class7 else "0")
-    Data.append(class8 if class8 else "0")
-    Data.append(class9 if class9 else "0")
-    Data.append(class10 if class10 else "0")
-    Data.append(class11 if class11 else "0")
-    Data.append(class12 if class12 else "0")
-    Data.append(paid)
-    sheet.append_row(Data)
-    st.success("Data Submitted Successfully!")
+    if t_password==teacher_password:
+        Data=[]
+        Data.append(teacher_id)
+        Data.append(str(selected_date ))
+        Data.append(class6 if class6 else "0")
+        Data.append(class7 if class7 else "0")
+        Data.append(class8 if class8 else "0")
+        Data.append(class9 if class9 else "0")
+        Data.append(class10 if class10 else "0")
+        Data.append(class11 if class11 else "0")
+        Data.append(class12 if class12 else "0")
+        Data.append(paid)
+        sheet.append_row(Data)
+        st.success("Data Submitted Successfully!")
+    else:
+        st.error("Teacher Password Is Not Correct!")
 
 
 
@@ -115,28 +122,34 @@ with col8:
 col9, col10 = st.columns(2)
 with col9:
     classXII = st.text_input("Class XII")
+with col10:
+    t_password = st.text_input("Teacher Password",type="password",key="update")
+
 
 if st.button("Update"):
-    row_num = find_row_by_id(sheet, teacher_id,str(selected_date))
-    if row_num:
-        updates={}
-        if classVI:
-            updates["Class-6"]=classVI
-        if classVII:
-            updates["Class-7"]=classVII
-        if classVIII:
-            updates["Class-8"]=classVIII
-        if classIX:
-            updates["Class-9"]=classIX
-        if classX:
-            updates["Class-10"]=classX
-        if classXI:
-            updates["Class-11"]=classXI
-        if classXI:
-            updates["Class-12"]=classXII
-        if updates:
-            update_specific_fields(sheet, row_num, updates)
-            st.success(f"Data updated for ID: {teacher_id}")
-            
+    if t_password==teacher_password:
+        row_num = find_row_by_id(sheet, teacher_id,str(selected_date))
+        if row_num:
+            updates={}
+            if classVI:
+                updates["Class-6"]=classVI
+            if classVII:
+                updates["Class-7"]=classVII
+            if classVIII:
+                updates["Class-8"]=classVIII
+            if classIX:
+                updates["Class-9"]=classIX
+            if classX:
+                updates["Class-10"]=classX
+            if classXI:
+                updates["Class-11"]=classXI
+            if classXI:
+                updates["Class-12"]=classXII
+            if updates:
+                update_specific_fields(sheet, row_num, updates)
+                st.success(f"Data updated for ID: {teacher_id}")
+                
+        else:
+            st.error("No Data Found!")
     else:
-        st.error("No Data Found!")
+        st.error("Teacher Password Is Not Correct!")

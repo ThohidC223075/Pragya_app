@@ -64,12 +64,13 @@ with col4:
 #Accessing the password
 my_password = st.secrets["password"]
 
-flag=0
+if "flag" not in st.session_state:
+    st.session_state.flag = 0
 # Submit Button
 if st.button("Submit"):
     if password==my_password:
         if option == "Individual":
-            flag=1
+            st.session_state.flag = 1
             if teacher_id and selected_date:
                 selected_date_dt = pd.to_datetime(selected_date)
 
@@ -131,7 +132,7 @@ if st.button("Submit"):
         st.error("Admin Password is not Correct!")
 
 if st.button("Paid"):
-    if password==my_password and flag==1:
+    if password==my_password and st.session_state.flag == 1:
         teacher_id_param = urllib.parse.quote(teacher_id)
         selected_date_param = urllib.parse.quote(selected_date.strftime('%Y-%m-%d'))
         
