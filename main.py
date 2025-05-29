@@ -74,5 +74,14 @@ st.markdown("""
         <a href="/teacher_class_wise_salary" target="_blank" class="rectangle">
             <h4>Teacher Class Wise Salary Input</h4>
         </a>
+        <a href="/coaching_cost" target="_blank" class="rectangle">
+            <h4>Coaching Cost</h4>
+        </a>
+        <a href="/student_payment" target="_blank" class="rectangle">
+            <h4>Student Payment</h4>
+        </a>
+        <a href="/total_collection" target="_blank" class="rectangle">
+            <h4>Total Collection</h4>
+        </a>
     </div>
 """, unsafe_allow_html=True)
