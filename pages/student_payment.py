@@ -7,7 +7,7 @@ from datetime import datetime
 from google.auth.exceptions import TransportError
 from gspread_client import client
 st.set_page_config(page_title="Insert Data", layout="wide")
-st.title("Insert Student Data")
+st.title("Student Payment")
 # Step 1: Auth and connect
 #scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
 #creds = ServiceAccountCredentials.from_json_keyfile_name("cred.json", scope)
