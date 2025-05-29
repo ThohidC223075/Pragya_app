@@ -59,7 +59,7 @@ st.markdown("""
         <a href="/insert_teacher_data" target="_blank" class="rectangle">
             <h4>Insert Data(Teacher)</h4>
         </a>
-        <a href="/update_teacher_data" target="_blank" class="rectangle">
+        <a href="/update_teacher_Data" target="_blank" class="rectangle">
             <h4>Update Data(Teacher)</h4>
         </a>
         <a href="/see_student_information" target="_blank" class="rectangle">
